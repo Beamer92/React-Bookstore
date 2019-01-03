@@ -30,3 +30,17 @@
     transform: rotate(360deg);
   }
 }
+
+th, td {
+  padding-left: .5em;
+  padding-right: .5em;
+}
+
+#cart{
+  border: 2px black solid;
+}
+
+.cartRow{
+  padding-left: .5em;
+  padding-bottom: 1em;
+}
