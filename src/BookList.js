@@ -2,6 +2,8 @@ import React, {Component} from 'react'
 import Book from './Book'
 import Cart from './Cart'
 import axios from 'axios'
+import AddBook from './AddBook'
+import EditBook from './EditBook'
 
 class BookList extends Component {
   constructor(props){
@@ -28,14 +30,13 @@ class BookList extends Component {
     const ourCart = list.filter(x => x.inCart === true).map(x=> {
       if(cqs !== []){
         const thisQty = cqs.find(q => q.id === x.id)
-        return {id: x.id, price: x.price, title: x.title, qty: thisQty ? thisQty.qty : 1}
+        return {id: x.id, price: (x.price ? x.price : 1), title: x.title, qty: thisQty ? thisQty.qty : 1}
       }
-      return {id: x.id, price: x.price, title: x.title, qty: 1}
+      return {id: x.id, price: (x.price ? x.price : 1), title: x.title, qty: 1}
     })
     return ourCart
   }
 
-  //filter state title and author here via: https://stackoverflow.com/questions/44412242/how-can-i-apply-multiple-filters-in-react
   getBooks = async(cqs = []) => {
     try{
       const result = await axios.get('http://localhost:8082/api/books')
@@ -151,6 +152,14 @@ class BookList extends Component {
           <label htmlFor='delete'>BookID &nbsp;</label>
           <input type='number' name='delete' value={this.state.toDelete} onChange={this.handleToDelete}></input>
           <button className='btn btn-danger' onClick={this.removeFromLibrary}>Del</button>
+
+
+          <br/><br/><br/>
+          <AddBook getBooks={()=> this.getBooks(this.state.cart)}/>
+
+          <br/><br/><br/>
+          {/*Editing Books removes that book from the cart, this happens on the backend, edit sets inCart to false automatically*/}
+          <EditBook getBooks={()=> this.getBooks(this.state.cart)} ids={this.state.bookList.map(x=> x.id)}/>
         </div>
       </div>
     )
