@@ -24,7 +24,6 @@ class BookList extends Component {
 
   componentDidMount() {
     this.getBooks()
-    console.log(process.env.REACT_APP_API_SERVER)
   }
 
   getCart = (list, cqs) => {
