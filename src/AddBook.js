@@ -31,7 +31,7 @@ class AddBook extends Component{
       }
       else{
         const newBook = this.state
-        await axios.post(`${process.env.API_SERVER}books`, newBook)
+        await axios.post(`${process.env.REACT_APP_API_SERVER}books`, newBook)
         this.props.getBooks()
         this.setState({
           title: '',
