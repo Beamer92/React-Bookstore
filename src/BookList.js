@@ -23,10 +23,11 @@ class BookList extends Component {
     this.getBooks()
   }
 
+  //filter state title and author here via: https://stackoverflow.com/questions/44412242/how-can-i-apply-multiple-filters-in-react
   getBooks = async() => {
     try{
       const result = await axios.get('http://localhost:8082/api/books')
-      console.log(result.data)
+ 
       this.setState ({
         bookList: result.data,
         cart: result.data.filter(x => x.inCart === true)
@@ -45,6 +46,14 @@ class BookList extends Component {
     }
   }
 
+  handleFilter = (event) => {
+    console.log('yep')
+    this.setState({
+      [event.target.name]: event.target.value
+    })
+  }
+
+
   render() {
     return (
       <div className='container'>
@@ -54,8 +63,8 @@ class BookList extends Component {
         <table>
           <thead>
             <tr className='header'>
-            <th>Title <input type='text' id='filterTitle' placeholder='Filter By Title'></input></th>
-            <th>Author <input type='text' id='filterTitle' placeholder='Filter By Author'></input></th>
+            <th>Title <input type='text' id='filterTitle' placeholder='Filter By Title' name='filterTitle' onChange={this.handleFilter}></input></th>
+            <th>Author <input type='text' id='filterTitle' placeholder='Filter By Author' name='filterAuthor' onChange={this.handleFilter}></input></th>
             <th>Pages</th>
             <th>Price</th>
             <th>Add To Cart</th>
