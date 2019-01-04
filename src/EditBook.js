@@ -33,7 +33,7 @@ class AddBook extends Component{
       }
       else{
         const editBook = this.state
-        await axios.put(`http://localhost:8082/api/books/${editBook.id}`, editBook)
+        await axios.put(`${process.env.API_SERVER}books/${editBook.id}`, editBook)
         this.props.getBooks()
         this.setState({
           id: 0,
@@ -55,7 +55,7 @@ class AddBook extends Component{
 
   handleIDChange = async (event) => {
     const id = event.target.value
-    const result = await axios.get(`http://localhost:8082/api/books/${id}`)
+    const result = await axios.get(`${process.env.API_SERVER}books/${id}`)
     this.setState({
       id: id,
       title: result.data.title,

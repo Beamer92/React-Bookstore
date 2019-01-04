@@ -39,7 +39,7 @@ class BookList extends Component {
 
   getBooks = async(cqs = []) => {
     try{
-      const result = await axios.get('http://localhost:8082/api/books')
+      const result = await axios.get(`${process.env.API_SERVER}books`)
       const cartList = this.getCart(result.data, cqs)
       this.setState ({
         bookList: result.data,
@@ -67,7 +67,7 @@ class BookList extends Component {
         })
       }
       else{
-        await axios.patch(`http://localhost:8082/api/books/cart/add/${id}`)
+        await axios.patch(`${process.env.API_SERVER}books/cart/add/${id}`)
         this.getBooks(this.state.cart)
       }
     } catch(err) {
@@ -77,7 +77,7 @@ class BookList extends Component {
 
   removeFromCart = async(id) => {
     try {
-      await axios.patch(`http://localhost:8082/api/books/cart/remove/${id}`)
+      await axios.patch(`${process.env.API_SERVER}books/cart/remove/${id}`)
       const curCart = this.state.cart.filter(x => x.id !== id)
       this.getBooks(curCart)
     } catch(err) {
@@ -105,7 +105,7 @@ class BookList extends Component {
   removeFromLibrary = async(event) => {
     event.preventDefault()
     try {
-      await axios.delete(`http://localhost:8082/api/books/${this.state.toDelete}`)
+      await axios.delete(`${process.env.API_SERVER}books/${this.state.toDelete}`)
       const curCart = this.state.cart.filter(x => x.id !== this.state.toDelete)
       this.getBooks(curCart)
     } catch(err) {
