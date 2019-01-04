@@ -44,3 +44,7 @@ th, td {
   padding-left: .5em;
   padding-bottom: 1em;
 }
+
+a {
+  font-size: 10pt;
+}

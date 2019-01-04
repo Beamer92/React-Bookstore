@@ -2,7 +2,7 @@ import React from 'react'
 import {Button} from 'reactstrap'
 
 export default function Book({title, author, pages, price, addToCart}){
-  
+
   return (
     <tr>
       <td>{title}</td>
